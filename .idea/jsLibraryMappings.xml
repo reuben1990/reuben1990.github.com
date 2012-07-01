@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{CocosDenshion, box2d, cocos2d}" />
+    <file url="PROJECT" libraries="{CocosDenshion, box2dweb, cocos2d}" />
     <excludedPredefinedLibrary name="DOM Traversal And Range" />
     <excludedPredefinedLibrary name="DOM XPath" />
     <excludedPredefinedLibrary name="EcmaScript" />

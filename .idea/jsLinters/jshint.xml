@@ -6,7 +6,6 @@
     <option noarg="true" />
     <option forin="true" />
     <option noempty="true" />
-    <option undef="true" />
     <option eqeqeq="true" />
     <option nonew="true" />
     <option browser="true" />

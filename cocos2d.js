@@ -75,7 +75,17 @@ cc.loadjs = function (filename) {
 };
 
 cc.loadjs('Lib/Cocos2d-html5-canvasmenu-min.js');
-cc.loadjs('Lib/box2d.js');
+cc.loadjs('Lib/Box2dWeb-2.1.a.3.js');
 cc.loadjs('AppDelegate.js');
+cc.loadjs('Config/Global.js');
+
+cc.loadjs('Classes/KeyHitAssistance.js');
+
+cc.loadjs('Classes/GameLayer.js');
+cc.loadjs('Classes/BaseSprite.js');
+cc.loadjs('Classes/Bullet.js');
+cc.loadjs('Classes/EnemySprite.js');
+cc.loadjs('Classes/HeroSprite.js');
+cc.loadjs('Classes/StaticSprite.js');
 cc.loadjs('Classes/GameLayer.js');
 

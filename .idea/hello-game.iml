@@ -7,6 +7,7 @@
     <orderEntry type="library" name="box2d" level="application" />
     <orderEntry type="library" name="cocos2d" level="application" />
     <orderEntry type="library" name="CocosDenshion" level="application" />
+    <orderEntry type="library" name="box2dweb" level="application" />
   </component>
 </module>
 
