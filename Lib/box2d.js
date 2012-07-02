@@ -7579,7 +7579,7 @@ Box2D.postDefs = [];
             this.gravity = this.GetWorld().GetGravity().Copy();
         }
         for (var i = this.m_bodyList; i; i = i.nextBody) {
-            var body = i.body;
+            var body = i.b2_body;
             if (body.IsAwake() == false) {
                 continue;
             }
@@ -7639,7 +7639,7 @@ Box2D.postDefs = [];
     b2ConstantAccelController.prototype.Step = function (step) {
         var smallA = new b2Vec2(this.A.x * step.dt, this.A.y * step.dt);
         for (var i = this.m_bodyList; i; i = i.nextBody) {
-            var body = i.body;
+            var body = i.b2_body;
             if (!body.IsAwake()) continue;
             body.SetLinearVelocity(new b2Vec2(body.GetLinearVelocity().x + smallA.x, body.GetLinearVelocity().y + smallA.y));
         }
@@ -7652,7 +7652,7 @@ Box2D.postDefs = [];
     };
     b2ConstantForceController.prototype.Step = function (step) {
         for (var i = this.m_bodyList; i; i = i.nextBody) {
-            var body = i.body;
+            var body = i.b2_body;
             if (!body.IsAwake()) continue;
             body.ApplyForce(this.F, body.GetWorldCenter());
         }
@@ -7663,7 +7663,7 @@ Box2D.postDefs = [];
     b2Controller.prototype.AddBody = function (body) {
         var edge = new b2ControllerEdge();
         edge.controller = this;
-        edge.body = body;
+        edge.b2_body = body;
         edge.nextBody = this.m_bodyList;
         edge.prevBody = null;
         this.m_bodyList = edge;
@@ -7690,7 +7690,7 @@ Box2D.postDefs = [];
     }
     b2Controller.prototype.Clear = function () {
         while (this.m_bodyList)
-            this.RemoveBody(this.m_bodyList.body);
+            this.RemoveBody(this.m_bodyList.b2_body);
     }
     b2Controller.prototype.GetNext = function () {
         return this.m_next;
@@ -7724,12 +7724,12 @@ Box2D.postDefs = [];
         if (this.invSqr) {
             for (i = this.m_bodyList;
                  i; i = i.nextBody) {
-                body1 = i.body;
+                body1 = i.b2_body;
                 p1 = body1.GetWorldCenter();
                 mass1 = body1.GetMass();
                 for (j = this.m_bodyList;
                      j != i; j = j.nextBody) {
-                    body2 = j.body;
+                    body2 = j.b2_body;
                     p2 = body2.GetWorldCenter();
                     dx = p2.x - p1.x;
                     dy = p2.y - p1.y;
@@ -7746,12 +7746,12 @@ Box2D.postDefs = [];
         else {
             for (i = this.m_bodyList;
                  i; i = i.nextBody) {
-                body1 = i.body;
+                body1 = i.b2_body;
                 p1 = body1.GetWorldCenter();
                 mass1 = body1.GetMass();
                 for (j = this.m_bodyList;
                      j != i; j = j.nextBody) {
-                    body2 = j.body;
+                    body2 = j.b2_body;
                     p2 = body2.GetWorldCenter();
                     dx = p2.x - p1.x;
                     dy = p2.y - p1.y;
@@ -7792,7 +7792,7 @@ Box2D.postDefs = [];
         if (timestep <= Number.MIN_VALUE) return;
         if (timestep > this.maxTimestep && this.maxTimestep > 0) timestep = this.maxTimestep;
         for (var i = this.m_bodyList; i; i = i.nextBody) {
-            var body = i.body;
+            var body = i.b2_body;
             if (!body.IsAwake()) {
                 continue;
             }

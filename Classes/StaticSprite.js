@@ -11,12 +11,9 @@ cc = cc = cc || {};
 b2 = b2 = b2 || {};
 my = my = my || {};
 
-my.StaticSprite = cc.BaseSprite.extend({
+my.StaticSprite = my.BaseSprite.extend({
     ctor : function (paraentNode, world, position, imgPath, width, height) {
-        this._super();
-        this.initialize(paraentNode, world, position, b2.b2Body.b2_staticBody, imgPath, width, height, 0, 0, 0, 1.0, 0.0, 1.0);
-    },
-    update : function () {
-        /*no need*/
+        this.initialize(paraentNode, world, position, b2.b2Body.b2_staticBody, imgPath, width, height, 0, 0, 0, 1, 0, 1, my.BOX_SHAPE);
+        this.spriteType = my.BaffleType;
     }
 });

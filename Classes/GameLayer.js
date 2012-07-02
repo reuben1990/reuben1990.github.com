@@ -5,72 +5,106 @@ my = my = my || {};
 b2 = b2 = b2 || {};
 
 var GameLayer = cc.Layer.extend({
+    horizontalBafflePath : "./Resources/horizental-baffle.gif",
+    verticalBafflePath : "./Resources/vertical-baffle.jpg",
+    backgroundPicPath : "./Resources/background.jpg",
+    horizontalBaffleHeight : 16,
+    verticalBaffleWidth : 16,
+    contactListener : null,
     world : null,
     hero : null,
     SCREEN_ABS : null,
-    SCREEN_REL : null,
     keyHitAssistance : null,
     init : function () {
-        this.setIsTouchEnabled(true);
-        this.setIsKeypadEnabled(true);
         this.SCREEN_ABS = cc.Director.sharedDirector().getWinSize();
-        this.SCREEN_REL = {width : this.SCREEN_ABS.width / my.TILE_SIZE, height : this.SCREEN_ABS.height / my.TILE_SIZE};
         this.keyHitAssistance = new my.keyKeyHitAssistance();
-
-        /*create the world*/
         this.world = new b2.b2World(new b2.b2Vec2(0, 0), true);
         this.world.SetContinuousPhysics(true);
-
-        /*set up some shared attr between fixturedef and bodydef*/
-        var groundSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_REL.WIDTH / 2, this.SCREEN_REL.HEIGHT  + 1), null, this.SCREEN_REL.WIDTH, 1);
-        var roofSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_REL.WIDTH / 2, -1), null, this.SCREEN_REL.WIDTH, 1);
-        var leftSprite = new my.StaticSprite(this, this.world, cc.PointMake(-1, this.SCREEN_REL.HEIGHT / 2), null, 1, this.SCREEN_REL.HEIGHT);
-        var rightSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_REL.WIDTH + 1, this.SCREEN_REL.HEIGHT / 2), null, 1, this.SCREEN_REL.HEIGHT);
-
+        this.initBackground();
+        this.initBoundry();
+        this.initEnemy();
+        this.hero = new my.HeroSprite(this, this.world, cc.PointMake(this.SCREEN_ABS.width / 4, this.SCREEN_ABS.height / 2), this.keyHitAssistance);
+        this.setIsTouchEnabled(true);
+        this.setIsKeypadEnabled(true);
+        this.initContactListener();
         this.scheduleUpdate();
-        this.hero = new my.HeroSprite(this, this.world, cc.PointMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height / 2), this.keyHitAssistance);
-        this.iniEnemy();
+        this.schedule(this.addEnemy, 10);
         return true;
     },
-    iniEnemy : function () {
-        var x = Math.random() * this.SCREEN_ABS.width;
-        var y = Math.random() * this.SCREEN_ABS.height;
-        var radian_direction = Math.random() * Math.PI;
-        var radian_self = Math.random() * Math.PI;
-        var velocity = Math.random() * 10 + 5;
-        var tmp = new my.EnemySprite(this, this.world, cc.PointMake(x, y), radian_direction, radian_self, velocity);
-    },
-    update : function () {
+    update : function (dt) {
         var velocityIterations = 6;
         var positionIterations = 2;
-        this.world.Step(1.0 / 60.0, velocityIterations, positionIterations);
+        this.world.Step(0.02, velocityIterations, positionIterations);
+        this.deleteTheDeads();
+        this.drawWorld();
     },
-    ccTouchBegan : function (touches, event) {
-
+    addEnemy : function () {
+        var i;
+        for (i = 0; i < 15; i += 1) {
+            var x = (Math.random() * 0.7 + 0.3) * this.SCREEN_ABS.width;
+            var y = Math.random() * this.SCREEN_ABS.height;
+            var radian_direction = Math.random() * Math.PI;
+            var radian_self = Math.random() * Math.PI;
+            var velocity = Math.random() * 5 + 5;
+            var enemy = new my.EnemySprite(this, this.world, cc.PointMake(x, y), radian_direction, radian_self, velocity);
+        }
     },
-    ccTouchesMoved : function (touches, event) {
-
+    ccTouchesBegan : function (pTouch, pEvent) {
+        this.hero.handleTouchBegan(pTouch[0].locationInView());
     },
-    ccTouchesEnded : function (touches, event) {
-        this.hero.handleTouch(touches, event);
-        /*var it;
-        for (it = 0; it < touches.length; it += 1) {
-            var touch = touches[it];
-            if (!touch) {
-                break;
-            } else {
-                var location = touch.locationInView(touch.view());
-                var radian = Math.random() * Math.PI * 2;
-                var radian_self = Math.random() * Math.PI * 2;
-                this.addNewSpriteWithCoords('./Resources/square.png', location, radian, radian_self, 5, 1, 0, 1);
-            }
-        }*/
+    ccTouchesMoved : function (pTouch, pEvent) {
+        this.hero.handleTouchMoved(pTouch[0].locationInView());
+    },
+    ccTouchesEnded : function (pTouch, pEvent) {
+        this.hero.handleTouchEnded(pTouch[0].locationInView());
     },
     keyUp : function (e) {
         this.keyHitAssistance.setKeyUp(e);
     },
     keyDown : function (e) {
         this.keyHitAssistance.setKeyDown(e);
+    },
+    drawWorld : function () {
+        var b;
+        for (b = this.world.GetBodyList(); b; b = b.GetNext()) {
+            if (b.GetUserData() !== null) {
+                var sprite = b.GetUserData();
+                sprite.setPosition(cc.PointMake(b.GetPosition().x * my.TILE_SIZE, b.GetPosition().y * my.TILE_SIZE));
+                sprite.setRotation(-1 * cc.RADIANS_TO_DEGREES(b.GetAngle()));
+            }
+        }
+    },
+    initBackground : function () {
+        var bgSprite = cc.Sprite.create(this.backgroundPicPath);
+        bgSprite.setPosition(cc.PointMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height / 2));
+        this.addChild(bgSprite);
+    },
+    initBoundry : function () {
+        var roofSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height + this.horizontalBaffleHeight / 2), this.horizontalBafflePath, this.SCREEN_ABS.width, this.horizontalBaffleHeight);
+        var groundSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_ABS.width / 2, -this.horizontalBaffleHeight / 2), this.horizontalBafflePath, this.SCREEN_ABS.width, this.horizontalBaffleHeight);
+        var leftSprite = new my.StaticSprite(this, this.world, cc.PointMake(-this.verticalBaffleWidth / 2, this.SCREEN_ABS.height / 2), this.verticalBafflePath, this.verticalBaffleWidth, this.SCREEN_ABS.height);
+        var rightSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_ABS.width + this.verticalBaffleWidth / 2, this.SCREEN_ABS.height / 2), this.verticalBafflePath, this.verticalBaffleWidth, this.SCREEN_ABS.height);
+    },
+    initEnemy : function () {
+        this.addEnemy();
+    },
+    initContactListener : function () {
+        this.contactListener = new b2.b2ContactListener();
+        this.contactListener.EndContact = function (contact) {
+            var spriteA = contact.GetFixtureA().GetBody().GetUserData();
+            var spriteB = contact.GetFixtureB().GetBody().GetUserData();
+            spriteA.handleCollision(spriteB);
+            spriteB.handleCollision(spriteA);
+        };
+        this.world.SetContactListener(this.contactListener);
+    },
+    deleteTheDeads : function () {
+        var i;
+        for (i = 0; i < my.graveyard.length; i += 1) {
+            var sprite_tmp = my.graveyard[i];
+            sprite_tmp.destroy();
+        }
+        my.graveyard = [];
     }
 });
 
