@@ -16,20 +16,22 @@ my.HeroSprite = my.BaseSprite.extend({
     width : 1,
     height : 1,
     keyHitAssistance : null,
-    parentNode : null,
     isShooting : false,
     velocity : 10,
-    shootInterval : 0.05,
+    normalShootInterval : 0.05,
+    fireShootInterval : 0.08,
+    shootInterval : null,
+    bulletType : null,
     radian_direction : 0,
     life : 100,
     power : 100,
     density : 100,
     assailable : false,
     ctor : function (paraentNode, world, position, keyHitAssistance) {
-        this.parentNode = paraentNode;
         this.keyHitAssistance = keyHitAssistance;
         this.initialize(paraentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, 0, 0, 0, this.density, 0, 1, my.BOX_SHAPE);
-        this.spriteType = my.HeroType;
+        this.spriteType = my.HERO_TYPE;
+        this.setBulletAs(my.NORMAL_BULLET);
     },
     alterPhysicalState : function (hero) {
         var x_tmp = 0;
@@ -67,7 +69,7 @@ my.HeroSprite = my.BaseSprite.extend({
     handleCollision : function (sprite) {
         if (!this.assailable) {
             this.assailable = true;
-        } else if (sprite.spriteType === my.EnemyType) {
+        } else if (sprite.spriteType === my.ENEMY_TYPE) {
             this.life -= sprite.power;
             if (this.life <= 0) {
                 this.tagAsDead();
@@ -83,6 +85,28 @@ my.HeroSprite = my.BaseSprite.extend({
         var pos =  this.b2_body.GetPosition();
         pos.x += x_offset;
         pos.y += y_offset;
-        var bullet = new my.BulletSprite(this.parentNode, this.world, pos, this.radian_direction);
+
+        if (this.bulletType === my.FIRE_BULLET) {
+            var fireBullet = new my.FireBulletSprite(this.paraentNode, this.world, pos, this.radian_direction);
+        } else {
+            var normalBullet = new my.NormalBulletSprite(this.paraentNode, this.world, pos, this.radian_direction);
+        }
+    },
+    changeBullet : function () {
+        this.isShooting = false;
+        this.unschedule(this.shoot);
+        if (this.bulletType === my.NORMAL_BULLET) {
+            this.setBulletAs(my.FIRE_BULLET);
+        } else {
+            this.setBulletAs(my.NORMAL_BULLET);
+        }
+    },
+    setBulletAs : function (type) {
+        if (type === my.NORMAL_BULLET) {
+            this.shootInterval = this.normalShootInterval;
+        } else {
+            this.shootInterval = this.fireShootInterval;
+        }
+        this.bulletType = type;
     }
 });

@@ -18,9 +18,11 @@ my.BaseSprite = cc.Sprite.extend({
     spriteType : null,
     world : null,
     power : 0,
+    paraentNode : null,
     initialize : function (paraentNode, world, position, type, imgPath, width, height, radian_direction, radian_self, velocity, density, friction, restitution, shape) {
         var bodyDef, body, fixtureDef;
         this.world = world;
+        this.paraentNode = paraentNode;
         this.initWithFile(imgPath, cc.RectMake(0, 0, width * my.TILE_SIZE, height * my.TILE_SIZE));
         this.setPosition(cc.PointMake(position.x * my.TILE_SIZE, position.y * my.TILE_SIZE));
         paraentNode.addChild(this);

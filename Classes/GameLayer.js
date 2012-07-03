@@ -43,7 +43,7 @@ var GameLayer = cc.Layer.extend({
     },
     addEnemy : function () {
         var i;
-        for (i = 0; i < 5; i += 1) {
+        for (i = 0; i < 10; i += 1) {
             var x = (Math.random() * 0.7 + 0.3) * this.SCREEN_TILE.width;
             var y = Math.random() * this.SCREEN_TILE.height;
             var radian_direction = Math.random() * Math.PI;
@@ -69,6 +69,9 @@ var GameLayer = cc.Layer.extend({
     },
     keyDown : function (e) {
         this.keyHitAssistance.setKeyDown(e);
+        if (e === cc.KEY.space) {
+            this.hero.changeBullet();
+        }
     },
     drawWorld : function () {
         var b;

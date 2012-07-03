@@ -15,10 +15,12 @@ my = my = my || {};
 my.TILE_SIZE = 32;
 my.CIRCLE_SHAPE = 100;
 my.BOX_SHAPE = 101;
-my.EnemyType = 102;
-my.HeroType = 103;
-my.BulletType = 104;
-my.BaffleType = 105;
+my.ENEMY_TYPE = 102;
+my.HERO_TYPE = 103;
+my.BULLET_TYPE = 104;
+my.BAFFLE_TYPE = 105;
+my.FIRE_BULLET = 106;
+my.NORMAL_BULLET = 107;
 my.graveyard = [];
 
 b2.b2Vec2 = Box2D.Common.Math.b2Vec2;

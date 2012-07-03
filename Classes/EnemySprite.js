@@ -15,21 +15,24 @@ my.EnemySprite = my.BaseSprite.extend({
     imgPath : "./Resources/enemy.png",
     width : 1.5,
     height : 1.5,
+    maxLife : 100,
     life : 100,
-    power : 20,
+    power : 10,
     impulseStrength : 4,
     maxVelocity : 5,
     density : 100,
     flareUpProbability : 0.001,
-    angerStrength : 75,
+    angerStrength : 100,
     isAnger : false,
     ctor : function (paraentNode, world, position, radian_direction, radian_self, velocity) {
         this.initialize(paraentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, radian_direction, radian_self, velocity, this.density, 0, 1, my.BOX_SHAPE);
-        this.spriteType = my.EnemyType;
+        this.spriteType = my.ENEMY_TYPE;
     },
     alterPhysicalState : function (hero) {
+        this.setColor(new cc.Color3B(255, 255, 255));
         if (!this.isAnger && Math.random() < this.flareUpProbability) {
             this.isAnger = true;
+            this.life = 20;
         }
         var vec = this.computeVecByPointsAndStrength(this.b2_body.GetPosition(), hero.b2_body.GetPosition(), this.impulseStrength);
         if (this.isAnger) {
@@ -46,15 +49,18 @@ my.EnemySprite = my.BaseSprite.extend({
         }
     },
     handleCollision : function (sprite) {
-        if (sprite.spriteType === my.HeroType || sprite.spriteType === my.BulletType) {
+        if (sprite.spriteType === my.HERO_TYPE || sprite.spriteType === my.BULLET_TYPE) {
             this.b2_body.SetLinearVelocity(new b2.b2Vec2(this.b2_body.GetLinearVelocity().x / 1.1, this.b2_body.GetLinearVelocity().y / 1.1));
             this.life -= sprite.power;
+            this.setColor(cc.RED());
             if (this.life <= 0) {
                 this.tagAsDead();
             }
         }
     },
     destroy : function () {
+        spark(this.getPosition(), this.paraentNode, 1.2, 0.7);
+        cc.AudioManager.sharedEngine().playEffect(my.s_shipDestroyEffect);
         this.doDestroy();
     }
 });
