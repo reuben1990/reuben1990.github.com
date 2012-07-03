@@ -13,12 +13,13 @@ b2 = b2 = b2 || {};
 
 my.BulletSprite = my.BaseSprite.extend({
     imgPath : "./Resources/bullet.png",
-    width : 16,
-    height : 16,
+    width : 0.5,
+    height : 0.5,
     velocity : 75,
-    power : 20,
+    power : 5,
+    density : 10,
     ctor : function (paraentNode, world, position, radian_direction) {
-        this.initialize(paraentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, radian_direction, 0, this.velocity, 2, 0, 1, my.CIRCLE_SHAPE);
+        this.initialize(paraentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, radian_direction, 0, this.velocity, this.density, 0.5, 0.5, my.CIRCLE_SHAPE);
         this.spriteType = my.BulletType;
         this.setAsBullet();
     },

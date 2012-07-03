@@ -8,30 +8,33 @@ var GameLayer = cc.Layer.extend({
     horizontalBafflePath : "./Resources/horizental-baffle.gif",
     verticalBafflePath : "./Resources/vertical-baffle.jpg",
     backgroundPicPath : "./Resources/background.jpg",
-    horizontalBaffleHeight : 16,
-    verticalBaffleWidth : 16,
+    horizontalBaffleHeight : 0.5,
+    verticalBaffleWidth : 0.5,
     contactListener : null,
     world : null,
     hero : null,
     SCREEN_ABS : null,
+    SCREEN_TILE : null,
     keyHitAssistance : null,
     init : function () {
         this.SCREEN_ABS = cc.Director.sharedDirector().getWinSize();
+        this.SCREEN_TILE = {width : this.SCREEN_ABS.width / my.TILE_SIZE, height : this.SCREEN_ABS.height / my.TILE_SIZE};
         this.keyHitAssistance = new my.keyKeyHitAssistance();
         this.world = new b2.b2World(new b2.b2Vec2(0, 0), true);
         this.world.SetContinuousPhysics(true);
         this.initBackground();
         this.initBoundry();
         this.initEnemy();
-        this.hero = new my.HeroSprite(this, this.world, cc.PointMake(this.SCREEN_ABS.width / 4, this.SCREEN_ABS.height / 2), this.keyHitAssistance);
+        this.hero = new my.HeroSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 4, this.SCREEN_TILE.height / 2), this.keyHitAssistance);
         this.setIsTouchEnabled(true);
         this.setIsKeypadEnabled(true);
         this.initContactListener();
         this.scheduleUpdate();
-        this.schedule(this.addEnemy, 10);
+        this.schedule(this.addEnemy, 15);
         return true;
     },
     update : function (dt) {
+        this.alterPhysicalState();
         var velocityIterations = 6;
         var positionIterations = 2;
         this.world.Step(0.02, velocityIterations, positionIterations);
@@ -40,9 +43,9 @@ var GameLayer = cc.Layer.extend({
     },
     addEnemy : function () {
         var i;
-        for (i = 0; i < 15; i += 1) {
-            var x = (Math.random() * 0.7 + 0.3) * this.SCREEN_ABS.width;
-            var y = Math.random() * this.SCREEN_ABS.height;
+        for (i = 0; i < 10; i += 1) {
+            var x = (Math.random() * 0.7 + 0.3) * this.SCREEN_TILE.width;
+            var y = Math.random() * this.SCREEN_TILE.height;
             var radian_direction = Math.random() * Math.PI;
             var radian_self = Math.random() * Math.PI;
             var velocity = Math.random() * 5 + 5;
@@ -50,13 +53,16 @@ var GameLayer = cc.Layer.extend({
         }
     },
     ccTouchesBegan : function (pTouch, pEvent) {
-        this.hero.handleTouchBegan(pTouch[0].locationInView());
+        var location = my.a_r_point(pTouch[0].locationInView());
+        this.hero.handleTouchBegan(location);
     },
     ccTouchesMoved : function (pTouch, pEvent) {
-        this.hero.handleTouchMoved(pTouch[0].locationInView());
+        var location = my.a_r_point(pTouch[0].locationInView());
+        this.hero.handleTouchMoved(location);
     },
     ccTouchesEnded : function (pTouch, pEvent) {
-        this.hero.handleTouchEnded(pTouch[0].locationInView());
+        var location = my.a_r_point(pTouch[0].locationInView());
+        this.hero.handleTouchEnded(location);
     },
     keyUp : function (e) {
         this.keyHitAssistance.setKeyUp(e);
@@ -80,17 +86,17 @@ var GameLayer = cc.Layer.extend({
         this.addChild(bgSprite);
     },
     initBoundry : function () {
-        var roofSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height + this.horizontalBaffleHeight / 2), this.horizontalBafflePath, this.SCREEN_ABS.width, this.horizontalBaffleHeight);
-        var groundSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_ABS.width / 2, -this.horizontalBaffleHeight / 2), this.horizontalBafflePath, this.SCREEN_ABS.width, this.horizontalBaffleHeight);
-        var leftSprite = new my.StaticSprite(this, this.world, cc.PointMake(-this.verticalBaffleWidth / 2, this.SCREEN_ABS.height / 2), this.verticalBafflePath, this.verticalBaffleWidth, this.SCREEN_ABS.height);
-        var rightSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_ABS.width + this.verticalBaffleWidth / 2, this.SCREEN_ABS.height / 2), this.verticalBafflePath, this.verticalBaffleWidth, this.SCREEN_ABS.height);
+        var roofSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 2, this.SCREEN_TILE.height + this.horizontalBaffleHeight / 2), this.horizontalBafflePath, this.SCREEN_TILE.width, this.horizontalBaffleHeight);
+        var groundSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 2, -this.horizontalBaffleHeight / 2), this.horizontalBafflePath, this.SCREEN_TILE.width, this.horizontalBaffleHeight);
+        var leftSprite = new my.StaticSprite(this, this.world, cc.PointMake(-this.verticalBaffleWidth / 2, this.SCREEN_TILE.height / 2), this.verticalBafflePath, this.verticalBaffleWidth, this.SCREEN_TILE.height);
+        var rightSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width + this.verticalBaffleWidth / 2, this.SCREEN_TILE.height / 2), this.verticalBafflePath, this.verticalBaffleWidth, this.SCREEN_TILE.height);
     },
     initEnemy : function () {
         this.addEnemy();
     },
     initContactListener : function () {
         this.contactListener = new b2.b2ContactListener();
-        this.contactListener.EndContact = function (contact) {
+        this.contactListener.BeginContact = function (contact) {
             var spriteA = contact.GetFixtureA().GetBody().GetUserData();
             var spriteB = contact.GetFixtureB().GetBody().GetUserData();
             spriteA.handleCollision(spriteB);
@@ -105,6 +111,15 @@ var GameLayer = cc.Layer.extend({
             sprite_tmp.destroy();
         }
         my.graveyard = [];
+    },
+    alterPhysicalState : function () {
+        var b;
+        for (b = this.world.GetBodyList(); b; b = b.GetNext()) {
+            var sprite = b.GetUserData();
+            if (sprite !== null) {
+                sprite.alterPhysicalState(this.hero);
+            }
+        }
     }
 });
 
