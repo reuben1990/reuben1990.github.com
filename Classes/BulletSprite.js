@@ -14,7 +14,7 @@ var NormalBulletSprite = BaseSprite.extend({
     power : 10,
     density : 50,
     ctor : function (parentNode, world, position, radian_direction) {
-        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, radian_direction, radian_direction + Math.PI / 2, this.velocity, this.density, 0.5, 0.5, my.CIRCLE_SHAPE);
+        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, radian_direction, 0, this.velocity, this.density, 0.5, 0.5, my.CIRCLE_SHAPE);
         this.spriteType = my.BULLET_TYPE;
         this.setAsBullet();
     },

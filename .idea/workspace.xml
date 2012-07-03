@@ -56,9 +56,7 @@
         <entry file="file://$PROJECT_DIR$/Classes/BackgroundSprite.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="9" column="50" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#157#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,7 +73,7 @@
       <file leaf-file-name="BulletSprite.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Classes/BulletSprite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="123" selection-start="515" selection-end="515" vertical-scroll-proportion="0.2777778">
+            <state line="12" column="18" selection-start="286" selection-end="286" vertical-scroll-proportion="0.20833333">
               <folding />
             </state>
           </provider>
@@ -84,7 +82,7 @@
       <file leaf-file-name="HeroSprite.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Classes/HeroSprite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="60" selection-start="2511" selection-end="2511" vertical-scroll-proportion="0.0">
+            <state line="51" column="16" selection-start="1733" selection-end="1733" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -136,8 +134,8 @@
         <option value="$PROJECT_DIR$/Classes/RotarySprite.js" />
         <option value="$PROJECT_DIR$/Classes/Effect.js" />
         <option value="$PROJECT_DIR$/Classes/GameLayer.js" />
-        <option value="$PROJECT_DIR$/Classes/BulletSprite.js" />
         <option value="$PROJECT_DIR$/Classes/HeroSprite.js" />
+        <option value="$PROJECT_DIR$/Classes/BulletSprite.js" />
       </list>
     </option>
   </component>
@@ -201,6 +199,16 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -263,25 +271,15 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="JavaScript.Libraries" />
     <property name="recentsLimit" value="5" />
-    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.lastSelected" value="JavaScript.Libraries" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -380,7 +378,6 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1526382" sideWeight="0.6710963" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42414173" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -392,6 +389,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39977852" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -479,9 +477,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/StaticSprite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="3" selection-start="461" selection-end="461" vertical-scroll-proportion="0.22234891">
-          <folding />
-        </state>
+        <state line="13" column="3" selection-start="461" selection-end="461" vertical-scroll-proportion="0.22234891" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Resources/background.jpg">
@@ -489,32 +485,9 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Effect.js">
+    <entry file="file://$PROJECT_DIR$/Classes/BaseSprite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="37" selection-start="3403" selection-end="3403" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cocos2d.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="12" selection-start="2734" selection-end="2734" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="163" selection-end="172" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Config/Resources.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="44" selection-start="1512" selection-end="1512" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="20" column="61" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/GameLayer.js">
@@ -524,32 +497,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/BaseSprite.js">
+    <entry file="file://$PROJECT_DIR$/Config/Resources.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="61" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="37" column="44" selection-start="1512" selection-end="1512" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/BackgroundSprite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="50" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#157#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="9" column="50" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="163" selection-end="172" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/HeroSprite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="60" selection-start="2511" selection-end="2511" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="51" column="16" selection-start="1733" selection-end="1733" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Effect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="99" column="37" selection-start="3403" selection-end="3403" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cocos2d.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="12" selection-start="2734" selection-end="2734" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/BulletSprite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="123" selection-start="515" selection-end="515" vertical-scroll-proportion="0.2777778">
+        <state line="12" column="18" selection-start="286" selection-end="286" vertical-scroll-proportion="0.20833333">
           <folding />
         </state>
       </provider>
