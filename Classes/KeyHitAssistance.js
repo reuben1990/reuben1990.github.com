@@ -6,10 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var my;
-my = my = my || {};
-
-my.keyKeyHitAssistance = function () {
+var keyKeyHitAssistance = function () {
     this.keyArray = new Array(300);
     var i;
     for (i = 0; i < this.keyArray.length; i += 1) {

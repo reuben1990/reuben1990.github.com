@@ -24,9 +24,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var cc, my;
-cc = cc = cc || {};
-my = my = my || {};
+var cc = cc = cc || {};
+var b2 = b2 = b2 || {};
+var my = my = my || {};
 
 //Cocos2d directory
 cc.Dir = './';//in relate to the html file or use absolute
@@ -66,8 +66,8 @@ cc.loadjs = function (filename) {
                 cc.AppController.shareAppController().didFinishLaunchingWithOptions();
             };
             //preload ressources
-            //cc.Loader.shareLoader().preload(my.g_ressources);
-            cc.Loader.shareLoader().preload([]);
+            cc.Loader.shareLoader().preload(g_ressources);
+            //cc.Loader.shareLoader().preload([]);
         }
     };
     if (script.order === 0)//if the first file to load, then we put it on the head
@@ -78,14 +78,14 @@ cc.loadjs = function (filename) {
 
 cc.loadjs('Lib/Cocos2d-html5-canvasmenu-min.js');
 cc.loadjs('Lib/box2d.js');
-cc.loadjs('AppDelegate.js');
 cc.loadjs('Config/Resources.js');
 cc.loadjs('Config/Global.js');
 
+cc.loadjs('Classes/Effect.js');
+cc.loadjs('AppDelegate.js');
 cc.loadjs('Classes/KeyHitAssistance.js');
 cc.loadjs('Classes/Utils.js');
-
-cc.loadjs('Classes/Effect.js');
+cc.loadjs('Classes/BackgroundSprite.js');
 cc.loadjs('Classes/GameLayer.js');
 cc.loadjs('Classes/BaseSprite.js');
 cc.loadjs('Classes/BulletSprite.js');

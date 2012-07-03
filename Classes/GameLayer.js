@@ -1,15 +1,8 @@
 
-var cc, my, b2;
-cc = cc = cc || {};
-my = my = my || {};
-b2 = b2 = b2 || {};
-
 var GameLayer = cc.Layer.extend({
-    horizontalBafflePath : "./Resources/horizental-baffle.gif",
-    verticalBafflePath : "./Resources/vertical-baffle.jpg",
-    backgroundPicPath : "./Resources/background.jpg",
     horizontalBaffleHeight : 0.5,
     verticalBaffleWidth : 0.5,
+    bgUpdateInterval : 0.04,
     contactListener : null,
     world : null,
     hero : null,
@@ -19,18 +12,19 @@ var GameLayer = cc.Layer.extend({
     init : function () {
         this.SCREEN_ABS = cc.Director.sharedDirector().getWinSize();
         this.SCREEN_TILE = {width : this.SCREEN_ABS.width / my.TILE_SIZE, height : this.SCREEN_ABS.height / my.TILE_SIZE};
-        this.keyHitAssistance = new my.keyKeyHitAssistance();
+        this.keyHitAssistance = new keyKeyHitAssistance();
         this.world = new b2.b2World(new b2.b2Vec2(0, 0), true);
         this.world.SetContinuousPhysics(true);
         this.initBackground();
         this.initBoundry();
         this.initEnemy();
-        this.hero = new my.HeroSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 4, this.SCREEN_TILE.height / 2), this.keyHitAssistance);
+        this.hero = new HeroSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 4, this.SCREEN_TILE.height / 2), this.keyHitAssistance);
         this.setIsTouchEnabled(true);
         this.setIsKeypadEnabled(true);
         this.initContactListener();
         this.scheduleUpdate();
         this.schedule(this.addEnemy, 10);
+        this.schedule(this.updateBackground, 0.5);
         return true;
     },
     update : function (dt) {
@@ -49,19 +43,22 @@ var GameLayer = cc.Layer.extend({
             var radian_direction = Math.random() * Math.PI;
             var radian_self = Math.random() * Math.PI;
             var velocity = Math.random() * 5;
-            var enemy = new my.EnemySprite(this, this.world, cc.PointMake(x, y), radian_direction, radian_self, velocity);
+            var enemy = new EnemySprite(this, this.world, cc.PointMake(x, y), radian_direction, radian_self, velocity);
         }
     },
+    updateBackground : function () {
+
+    },
     ccTouchesBegan : function (pTouch, pEvent) {
-        var location = my.a_r_point(pTouch[0].locationInView());
+        var location = a_r_point(pTouch[0].locationInView());
         this.hero.handleTouchBegan(location);
     },
     ccTouchesMoved : function (pTouch, pEvent) {
-        var location = my.a_r_point(pTouch[0].locationInView());
+        var location = a_r_point(pTouch[0].locationInView());
         this.hero.handleTouchMoved(location);
     },
     ccTouchesEnded : function (pTouch, pEvent) {
-        var location = my.a_r_point(pTouch[0].locationInView());
+        var location = a_r_point(pTouch[0].locationInView());
         this.hero.handleTouchEnded(location);
     },
     keyUp : function (e) {
@@ -84,15 +81,14 @@ var GameLayer = cc.Layer.extend({
         }
     },
     initBackground : function () {
-        var bgSprite = cc.Sprite.create(this.backgroundPicPath);
-        bgSprite.setPosition(cc.PointMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height / 2));
-        this.addChild(bgSprite);
+        var bg = new backgroundSprite(this, background_pic_path, cc.PointMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height / 2), this.bgUpdateInterval);
+        //varyingSizeEffect(this, cc.PointMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height / 2));
     },
     initBoundry : function () {
-        var roofSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 2, this.SCREEN_TILE.height + this.horizontalBaffleHeight / 2), this.horizontalBafflePath, this.SCREEN_TILE.width, this.horizontalBaffleHeight);
-        var groundSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 2, -this.horizontalBaffleHeight / 2), this.horizontalBafflePath, this.SCREEN_TILE.width, this.horizontalBaffleHeight);
-        var leftSprite = new my.StaticSprite(this, this.world, cc.PointMake(-this.verticalBaffleWidth / 2, this.SCREEN_TILE.height / 2), this.verticalBafflePath, this.verticalBaffleWidth, this.SCREEN_TILE.height);
-        var rightSprite = new my.StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width + this.verticalBaffleWidth / 2, this.SCREEN_TILE.height / 2), this.verticalBafflePath, this.verticalBaffleWidth, this.SCREEN_TILE.height);
+        var roofSprite = new StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 2, this.SCREEN_TILE.height + this.horizontalBaffleHeight / 2), horizontal_baffle_path, this.SCREEN_TILE.width, this.horizontalBaffleHeight);
+        var groundSprite = new StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 2, -this.horizontalBaffleHeight / 2), horizontal_baffle_path, this.SCREEN_TILE.width, this.horizontalBaffleHeight);
+        var leftSprite = new StaticSprite(this, this.world, cc.PointMake(-this.verticalBaffleWidth / 2, this.SCREEN_TILE.height / 2), vertical_baffle_path, this.verticalBaffleWidth, this.SCREEN_TILE.height);
+        var rightSprite = new StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width + this.verticalBaffleWidth / 2, this.SCREEN_TILE.height / 2), vertical_baffle_path, this.verticalBaffleWidth, this.SCREEN_TILE.height);
     },
     initEnemy : function () {
         this.addEnemy();

@@ -43,8 +43,7 @@ var flareEffect = function (parent, target, callback) {
     flare.runAction(bigger);
 };
 
-
-var spark = function (ccpoint, parent, scale, duration) {
+var sparkEffect = function (ccpoint, parent, scale, duration) {
     scale = scale || 0.3;
     duration = duration || 0.5;
     var one = new additiveSprite();
@@ -81,3 +80,120 @@ var spark = function (ccpoint, parent, scale, duration) {
         parent.removeChild(three);
     }, duration * 1000);
 };
+
+var playHitEffect = function (parent, position) {
+    var explode = new additiveSprite();
+    explode.initWithFile(s_hit);
+    explode.setPosition(position);
+    explode.setRotation(Math.random() * 360);
+    explode.setScale(0.75);
+    parent.addChild(explode, 9999);
+
+    var removeExplode = cc.CallFunc.create(explode, explode.removeFromParentAndCleanup);
+    explode.runAction(cc.ScaleBy.create(0.3, 2, 2));
+    explode.runAction(cc.Sequence.create(cc.FadeOut.create(0.3), removeExplode));
+};
+
+var varyingSizeEffect = function (parent, position) {
+    var emitter = new cc.ParticleSystemQuad();
+    //this._emitter.initWithTotalParticles(1000);
+    emitter.initWithTotalParticles(20);
+    //emitter.autorelease();
+
+    parent.addChild(emitter, 10);
+    ////this._emitter.release();
+
+    // duration
+    emitter.setDuration(-1);
+
+    // gravity
+    emitter.setGravity(cc.PointMake(0, 0));
+
+    // angle
+    emitter.setAngle(0);
+    emitter.setAngleVar(360);
+
+    // radial
+    emitter.setRadialAccel(70);
+    emitter.setRadialAccelVar(10);
+
+    // tagential
+    emitter.setTangentialAccel(80);
+    emitter.setTangentialAccelVar(0);
+
+    // speed of particles
+    emitter.setSpeed(50);
+    emitter.setSpeedVar(10);
+
+    // emitter position
+    emitter.setPosition(position);
+    emitter.setPosVar(cc.PointZero());
+
+    // life of particles
+    emitter.setLife(2.0);
+    emitter.setLifeVar(0.3);
+
+    // emits per frame
+    emitter.setEmissionRate(emitter.getTotalParticles() / emitter.getLife());
+
+    // color of particles
+    var startColor = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+    emitter.setStartColor(startColor);
+
+    var startColorVar = new cc.Color4F(0.5, 0.5, 0.5, 1.0);
+    emitter.setStartColorVar(startColorVar);
+
+    var endColor = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+    emitter.setEndColor(endColor);
+
+    var endColorVar = new cc.Color4F(0.1, 0.1, 0.1, 0.2);
+    emitter.setEndColorVar(endColorVar);
+
+    // size, in pixels
+    emitter.setStartSize(1.0);
+    emitter.setStartSizeVar(1.0);
+    emitter.setEndSize(32.0);
+    emitter.setEndSizeVar(8.0);
+
+    // texture
+    emitter.setTexture(cc.TextureCache.sharedTextureCache().addImage(s_fire));
+    emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+    // additive
+    emitter.setIsBlendAdditive(false);
+};
+/*
+var Explosion = additiveSprite.extend({
+    tmpWidth:0,
+    tmpHeight:0,
+    ctor:function () {
+        this._super();
+        this.tmpWidth = this.getContentSize().width;
+        this.tmpHeight = this.getContentSize().height;
+        var pFrame = cc.SpriteFrameCache.sharedSpriteFrameCache().spriteFrameByName("explosion_01.png");
+        this.initWithSpriteFrame(pFrame);
+
+        var animation = cc.AnimationCache.sharedAnimationCache().animationByName("Explosion");
+        this.runAction(cc.Sequence.create(
+            cc.Animate.create(animation, false),
+            cc.CallFunc.create(this, this.destroy)
+        ));
+    },
+    destroy:function () {
+        this.getParent().removeChild(this);
+    }
+});
+
+var sharedExplosion = function () {
+    var a = cc.SpriteFrameCache.sharedSpriteFrameCache();
+    a.addSpriteFramesWithFile('./Resources/explosion.plist');
+    var animFrames = [];
+    var str = "";
+    for (var i = 1; i < 35; i++) {
+        str = "explosion_" + (i < 10 ? ("0" + i) : i) + ".png";
+        var frame = cc.SpriteFrameCache.sharedSpriteFrameCache().spriteFrameByName(str);
+        animFrames.push(frame);
+    }
+    var animation = cc.Animation.create(animFrames, 0.04);
+    cc.AnimationCache.sharedAnimationCache().addAnimation(animation, "Explosion");
+};
+*/

@@ -6,13 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var cc, b2, my;
-cc = cc = cc || {};
-b2 = b2 = b2 || {};
-my = my = my || {};
-
-my.EnemySprite = my.BaseSprite.extend({
-    imgPath : "./Resources/enemy.png",
+var EnemySprite = BaseSprite.extend({
     width : 1.5,
     height : 1.5,
     maxLife : 100,
@@ -24,8 +18,8 @@ my.EnemySprite = my.BaseSprite.extend({
     flareUpProbability : 0.001,
     angerStrength : 100,
     isAnger : false,
-    ctor : function (paraentNode, world, position, radian_direction, radian_self, velocity) {
-        this.initialize(paraentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, radian_direction, radian_self, velocity, this.density, 0, 1, my.BOX_SHAPE);
+    ctor : function (parentNode, world, position, radian_direction, radian_self, velocity) {
+        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, enemy_path, this.width, this.height, radian_direction, radian_self, velocity, this.density, 0, 1, my.BOX_SHAPE);
         this.spriteType = my.ENEMY_TYPE;
     },
     alterPhysicalState : function (hero) {
@@ -59,8 +53,7 @@ my.EnemySprite = my.BaseSprite.extend({
         }
     },
     destroy : function () {
-        spark(this.getPosition(), this.paraentNode, 1.2, 0.7);
-        cc.AudioManager.sharedEngine().playEffect(my.s_shipDestroyEffect);
+        sparkEffect(this.getPosition(), this.parentNode, 1.2, 0.7);
         this.doDestroy();
     }
 });

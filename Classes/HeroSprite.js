@@ -6,13 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var cc, b2, my;
-cc = cc = cc || {};
-b2 = b2 = b2 || {};
-my = my = my || {};
-
-my.HeroSprite = my.BaseSprite.extend({
-    imgPath : "./Resources/hero.png",
+var HeroSprite = BaseSprite.extend({
     width : 1,
     height : 1,
     keyHitAssistance : null,
@@ -27,9 +21,9 @@ my.HeroSprite = my.BaseSprite.extend({
     power : 100,
     density : 100,
     assailable : false,
-    ctor : function (paraentNode, world, position, keyHitAssistance) {
+    ctor : function (parentNode, world, position, keyHitAssistance) {
         this.keyHitAssistance = keyHitAssistance;
-        this.initialize(paraentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, 0, 0, 0, this.density, 0, 1, my.BOX_SHAPE);
+        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, hero_path, this.width, this.height, 0, 0, 0, this.density, 0, 1, my.BOX_SHAPE);
         this.spriteType = my.HERO_TYPE;
         this.setBulletAs(my.NORMAL_BULLET);
     },
@@ -87,9 +81,9 @@ my.HeroSprite = my.BaseSprite.extend({
         pos.y += y_offset;
 
         if (this.bulletType === my.FIRE_BULLET) {
-            var fireBullet = new my.FireBulletSprite(this.paraentNode, this.world, pos, this.radian_direction);
+            var fireBullet = new FireBulletSprite(this.parentNode, this.world, pos, this.radian_direction);
         } else {
-            var normalBullet = new my.NormalBulletSprite(this.paraentNode, this.world, pos, this.radian_direction);
+            var normalBullet = new NormalBulletSprite(this.parentNode, this.world, pos, this.radian_direction);
         }
     },
     changeBullet : function () {

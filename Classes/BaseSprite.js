@@ -6,26 +6,21 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var cc, b2, my;
-cc = cc = cc || {};
-b2 = b2 = b2 || {};
-my = my = my || {};
-
-my.BaseSprite = cc.Sprite.extend({
+var BaseSprite = cc.Sprite.extend({
     b2_body : null,
     bodyDef : null,
     fixtureDef : null,
     spriteType : null,
     world : null,
     power : 0,
-    paraentNode : null,
-    initialize : function (paraentNode, world, position, type, imgPath, width, height, radian_direction, radian_self, velocity, density, friction, restitution, shape) {
+    parentNode : null,
+    initialize : function (parentNode, world, position, type, imgPath, width, height, radian_direction, radian_self, velocity, density, friction, restitution, shape) {
         var bodyDef, body, fixtureDef;
         this.world = world;
-        this.paraentNode = paraentNode;
+        this.parentNode = parentNode;
         this.initWithFile(imgPath, cc.RectMake(0, 0, width * my.TILE_SIZE, height * my.TILE_SIZE));
         this.setPosition(cc.PointMake(position.x * my.TILE_SIZE, position.y * my.TILE_SIZE));
-        paraentNode.addChild(this);
+        parentNode.addChild(this);
 
         bodyDef = new b2.b2BodyDef();
         bodyDef.type = type;

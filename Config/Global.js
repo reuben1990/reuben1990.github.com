@@ -6,12 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var cc, Box2D, b2, my;
-cc = cc = cc || {};
-Box2D = Box2D = Box2D || {};
-b2 = b2 = b2 || {};
-my = my = my || {};
-
 my.TILE_SIZE = 32;
 my.CIRCLE_SHAPE = 100;
 my.BOX_SHAPE = 101;
