@@ -30,7 +30,7 @@ var GameLayer = cc.Layer.extend({
         this.setIsKeypadEnabled(true);
         this.initContactListener();
         this.scheduleUpdate();
-        this.schedule(this.addEnemy, 15);
+        this.schedule(this.addEnemy, 10);
         return true;
     },
     update : function (dt) {
@@ -43,12 +43,12 @@ var GameLayer = cc.Layer.extend({
     },
     addEnemy : function () {
         var i;
-        for (i = 0; i < 10; i += 1) {
+        for (i = 0; i < 5; i += 1) {
             var x = (Math.random() * 0.7 + 0.3) * this.SCREEN_TILE.width;
             var y = Math.random() * this.SCREEN_TILE.height;
             var radian_direction = Math.random() * Math.PI;
             var radian_self = Math.random() * Math.PI;
-            var velocity = Math.random() * 5 + 5;
+            var velocity = Math.random() * 5;
             var enemy = new my.EnemySprite(this, this.world, cc.PointMake(x, y), radian_direction, radian_self, velocity);
         }
     },

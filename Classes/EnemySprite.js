@@ -18,20 +18,30 @@ my.EnemySprite = my.BaseSprite.extend({
     life : 100,
     power : 20,
     impulseStrength : 4,
-    maxVelocity : 15,
+    maxVelocity : 5,
     density : 100,
+    flareUpProbability : 0.001,
+    angerStrength : 75,
+    isAnger : false,
     ctor : function (paraentNode, world, position, radian_direction, radian_self, velocity) {
         this.initialize(paraentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, radian_direction, radian_self, velocity, this.density, 0, 1, my.BOX_SHAPE);
         this.spriteType = my.EnemyType;
     },
     alterPhysicalState : function (hero) {
+        if (!this.isAnger && Math.random() < this.flareUpProbability) {
+            this.isAnger = true;
+        }
         var vec = this.computeVecByPointsAndStrength(this.b2_body.GetPosition(), hero.b2_body.GetPosition(), this.impulseStrength);
-        vec.x *= (1 + Math.random());
-        vec.y *= (1 + Math.random());
+        if (this.isAnger) {
+            vec = this.modifyVecToNewLength(vec, this.angerStrength);
+        } else {
+            vec.x *= (1 + Math.random());
+            vec.y *= (1 + Math.random());
+        }
         this.b2_body.ApplyImpulse(vec, this.b2_body.GetWorldCenter());
 
         var oldVelocity = this.b2_body.GetLinearVelocity();
-        if (this.computeVecLength(oldVelocity) > this.maxVelocity) {
+        if (!this.isAnger && this.computeVecLength(oldVelocity) > this.maxVelocity) {
             this.b2_body.SetLinearVelocity(this.modifyVecToNewLength(oldVelocity, this.maxVelocity));
         }
     },
