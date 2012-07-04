@@ -15,14 +15,14 @@ my.BULLET_TYPE = 104;
 my.BAFFLE_TYPE = 105;
 my.FIRE_BULLET = 106;
 my.NORMAL_BULLET = 107;
-my.graveyard = [];
-my.gameOver = false;
-my.score = 0;
-my.scoreLabel = null;
-my.lifeLabel = null;
 my.bgLayer = 0;
 my.spriteLayer = 10;
 my.fgLayer = 100;
+
+my.graveyard = [];
+my.score = 0;
+my.scoreLabel = null;
+my.lifeLabel = null;
 
 b2.b2Vec2 = Box2D.Common.Math.b2Vec2;
 b2.b2BodyDef = Box2D.Dynamics.b2BodyDef;

@@ -7,8 +7,8 @@
  */
 
 var EnemySprite = BaseSprite.extend({
-    width : 1.5,
-    height : 1.5,
+    width : 2,
+    height : 2,
     maxLife : 100,
     life : 100,
     power : 10,
@@ -16,10 +16,10 @@ var EnemySprite = BaseSprite.extend({
     maxVelocity : 5,
     density : 100,
     flareUpProbability : 0.002,
-    angerStrength : 250,
+    angerStrength : 200,
     isAnger : false,
     ctor : function (parentNode, world, position, radian_direction, radian_self, velocity) {
-        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, enemy_path, this.width, this.height, radian_direction, radian_self, velocity, this.density, 0, 1, my.BOX_SHAPE);
+        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, enemy_path, this.width, this.height, radian_direction, radian_self, velocity, this.density, 0.8, 1, my.CIRCLE_SHAPE);
         this.spriteType = my.ENEMY_TYPE;
     },
     drawSelf : function () {
@@ -47,7 +47,7 @@ var EnemySprite = BaseSprite.extend({
     },
     handleCollision : function (sprite) {
         if (sprite.spriteType === my.HERO_TYPE || sprite.spriteType === my.BULLET_TYPE) {
-            this.b2_body.SetLinearVelocity(new b2.b2Vec2(this.b2_body.GetLinearVelocity().x / 1.1, this.b2_body.GetLinearVelocity().y / 1.1));
+            this.b2_body.SetLinearVelocity(new b2.b2Vec2(this.b2_body.GetLinearVelocity().x / 1.3, this.b2_body.GetLinearVelocity().y / 1.3));
             this.life -= sprite.power;
             my.score += sprite.power;
             my.scoreLabel.setString("Score : " + my.score);

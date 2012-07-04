@@ -14,7 +14,7 @@ var NormalBulletSprite = BaseSprite.extend({
     power : 10,
     density : 50,
     ctor : function (parentNode, world, position, radian_direction) {
-        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, radian_direction, radian_direction - Math.PI / 2, this.velocity, this.density, 0.5, 0.5, my.CIRCLE_SHAPE);
+        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, this.imgPath, this.width, this.height, radian_direction, radian_direction - Math.PI / 2, this.velocity, this.density, 0.8, 1, my.CIRCLE_SHAPE);
         this.spriteType = my.BULLET_TYPE;
         this.setAsBullet();
     },
@@ -24,7 +24,7 @@ var NormalBulletSprite = BaseSprite.extend({
     handleCollision : function (sprite) {
         if (sprite.spriteType !== my.HERO_TYPE) {
             this.tagAsDead();
-            playHitEffect(this.parentNode, r_a_point(this.b2_body.GetPosition()));
+            playHitEffect(this.parentNode, r_a_point(this.b2_body.GetPosition()), 0.75, 0.6);
         }
     },
     destroy : function () {
@@ -35,7 +35,7 @@ var NormalBulletSprite = BaseSprite.extend({
 var FireBulletSprite = NormalBulletSprite.extend({
     imgPath : fire_bullet,
     velocity : 30,
-    power : 34,
+    power : 50,
     width : 0.5,
     height : 0.5,
     ctor : function (parentNode, world, position, radian_direction) {

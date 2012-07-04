@@ -74,12 +74,7 @@ var BaseSprite = cc.Sprite.extend({
         if (this.getParent() !== null) {
             this.removeFromParentAndCleanup(true);
         }
-        //this.unscheduleAllSelectors();
-        //var parentNode = this.getParent();
         var body_tmp = this.b2_body;
-        /*if (parentNode !== null) {
-            parentNode.removeChild(this);
-        }*/
         this.world.DestroyBody(body_tmp);
     },
     computeVecLength : function (vec) {

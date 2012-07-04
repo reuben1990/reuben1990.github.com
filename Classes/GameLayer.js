@@ -21,13 +21,13 @@ var GameLayer = cc.Layer.extend({
         this.initEnemy();
         this.initScoreLabel();
         this.initLifeLabel();
+        this.initTipsLabel();
 
         this.setIsTouchEnabled(true);
         this.setIsKeypadEnabled(true);
         this.initContactListener();
         this.scheduleUpdate();
         this.schedule(this.addEnemy, 10);
-        this.schedule(this.updateBackground, 0.5);
         return true;
     },
     update : function (dt) {
@@ -49,8 +49,18 @@ var GameLayer = cc.Layer.extend({
             var enemy = new EnemySprite(this, this.world, cc.PointMake(x, y), radian_direction, radian_self, velocity);
         }
     },
-    updateBackground : function () {
-
+    onHeroDestroy : function () {
+        //cc.DelayTime.create(1);
+        //cc.CallFunc.create(this, this.onGameOver);
+        this.onGameOver();
+    },
+    onGameOver : function () {
+        var scene = cc.Scene.create();
+        scene.addChild(GameOver.create());
+        cc.Director.sharedDirector().replaceScene(cc.TransitionFade.create(1.2, scene));
+        /*if (this.getParent() !== null) {
+            this.removeFromParentAndCleanup(true);
+        }*/
     },
     ccTouchesBegan : function (pTouch, pEvent) {
         var location = a_r_point(pTouch[0].locationInView());
@@ -102,6 +112,11 @@ var GameLayer = cc.Layer.extend({
         my.lifeLabel = cc.LabelTTF.create("Life : " + this.hero.life, cc.SizeMake(this.SCREEN_ABS.width / 6, this.SCREEN_ABS.height / 12), cc.TEXT_ALIGNMENT_CENTER, "Arial", 30);
         this.addChild(my.lifeLabel, my.fgLayer);
         my.lifeLabel.setPosition(cc.ccp(this.SCREEN_ABS.width / 12, this.SCREEN_ABS.height / 24 * 23));
+    },
+    initTipsLabel : function () {
+        var label = cc.LabelTTF.create("Use A, S, D, W to walk, LEFT CLICK to fire, SPACE to change bullet", cc.SizeMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height / 20), cc.TEXT_ALIGNMENT_CENTER, "Arial", 15);
+        this.addChild(label, my.fgLayer);
+        label.setPosition(cc.ccp(this.SCREEN_ABS.width / 4 * 3, this.SCREEN_ABS.height / 40));
     },
     initContactListener : function () {
         this.contactListener = new b2.b2ContactListener();

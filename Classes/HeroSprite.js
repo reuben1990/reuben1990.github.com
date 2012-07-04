@@ -7,8 +7,8 @@
  */
 
 var HeroSprite = BaseSprite.extend({
-    width : 1,
-    height : 1,
+    width : 1.5,
+    height : 1.5,
     keyHitAssistance : null,
     isShooting : false,
     velocity : 10,
@@ -22,14 +22,15 @@ var HeroSprite = BaseSprite.extend({
     density : 100,
     ctor : function (parentNode, world, position, keyHitAssistance) {
         this.keyHitAssistance = keyHitAssistance;
-        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, hero_path, this.width, this.height, 0, 0, 0, this.density, 0, 1, my.BOX_SHAPE);
+        this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, hero_path, this.width, this.height, 0, 0, 0, this.density, 0.8, 1, my.CIRCLE_SHAPE);
         this.spriteType = my.HERO_TYPE;
         this.setBulletAs(my.NORMAL_BULLET);
     },
     //callback
     drawSelf : function () {
         if (this.life > 0) {
-            this.doDrawSelf();
+            this.setRotation(-1 * cc.RADIANS_TO_DEGREES(this.radian_direction + Math.PI));
+            this.setPosition(cc.PointMake(this.b2_body.GetPosition().x * my.TILE_SIZE, this.b2_body.GetPosition().y * my.TILE_SIZE));
         }
     },
     //callback
@@ -90,15 +91,17 @@ var HeroSprite = BaseSprite.extend({
     //callback
     destroy : function () {
         this.doDestroy();
-        my.gameOver = true;
+        this.parentNode.onHeroDestroy();
     },
     shoot : function () {
-        var x_offset = Math.cos(this.radian_direction) * 1.5;
-        var y_offset = Math.sin(this.radian_direction) * 1.5;
+        var bulletX_offset = Math.cos(this.radian_direction) * 1.5;
+        var bulletY_offset = Math.sin(this.radian_direction) * 1.5;
         var pos =  this.b2_body.GetPosition();
-        pos.x += x_offset;
-        pos.y += y_offset;
+        var firePos = {x : pos.x + bulletX_offset / 1.5, y : pos.y + bulletY_offset / 1.5};
+        pos.x += bulletX_offset;
+        pos.y += bulletY_offset;
 
+        playHitEffect(this.parentNode, r_a_point(firePos), 0.5, 0.05);
         if (this.bulletType === my.FIRE_BULLET) {
             var fireBullet = new FireBulletSprite(this.parentNode, this.world, pos, this.radian_direction);
         } else {

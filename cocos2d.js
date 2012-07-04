@@ -81,8 +81,9 @@ cc.loadjs('Lib/box2d.js');
 cc.loadjs('Config/Resources.js');
 cc.loadjs('Config/Global.js');
 
-cc.loadjs('Classes/Effect.js');
 cc.loadjs('AppDelegate.js');
+cc.loadjs('Classes/Effect.js');
+cc.loadjs('Classes/GameOver.js')
 cc.loadjs('Classes/KeyHitAssistance.js');
 cc.loadjs('Classes/Utils.js');
 cc.loadjs('Classes/BackgroundSprite.js');

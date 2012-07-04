@@ -81,17 +81,17 @@ var sparkEffect = function (ccpoint, parent, scale, duration) {
     }, duration * 1000);
 };
 
-var playHitEffect = function (parent, position) {
+var playHitEffect = function (parent, position, pScale, pTime) {
     var explode = new additiveSprite();
     explode.initWithFile(s_hit);
     explode.setPosition(position);
     explode.setRotation(Math.random() * 360);
-    explode.setScale(0.75);
+    explode.setScale(pScale);
     parent.addChild(explode, 9999);
 
     var removeExplode = cc.CallFunc.create(explode, explode.removeFromParentAndCleanup);
-    explode.runAction(cc.ScaleBy.create(0.3, 2, 2));
-    explode.runAction(cc.Sequence.create(cc.FadeOut.create(0.3), removeExplode));
+    explode.runAction(cc.ScaleBy.create(pTime / 2, 2, 2));
+    explode.runAction(cc.Sequence.create(cc.FadeOut.create(pTime / 2), removeExplode));
 };
 
 var varyingSizeEffect = function (parent, position) {

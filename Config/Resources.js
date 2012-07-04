@@ -16,6 +16,7 @@ var s_explode2 = "./Resources/explode2.jpg";
 var s_explode3 = "./Resources/explode3.jpg";
 var s_hit = "./Resources/hit.jpg";
 var s_fire = "./Resources/fire.png";
+var s_menu = "./Resources/menu.png";
 var horizontal_baffle_path = "./Resources/horizental-baffle.gif";
 var vertical_baffle_path = "./Resources/vertical-baffle.jpg";
 var background_pic_path = "./Resources/background.jpg";
@@ -23,6 +24,7 @@ var normal_bullet = "./Resources/normal-bullet.png";
 var fire_bullet = "./Resources/fire-bullet.png";
 var enemy_path = "./Resources/enemy.png";
 var hero_path = "./Resources/hero.png";
+var gameoverbg_path = "./Resources/gameover.jpg";
 //var font_path = "./Resources/fonts/bitmapFontTest.fnt";
 
 //music
@@ -67,7 +69,9 @@ var g_ressources = [
     {type: "image", src: normal_bullet},
     {type: "image", src: fire_bullet},
     {type: "image", src: enemy_path},
-    {type: "image", src: hero_path}
+    {type: "image", src: hero_path},
+    {type: "image", src: s_menu},
+    {type: "image", src: gameoverbg_path}
     //{type: "image", src: font_path}
 
     //tmx

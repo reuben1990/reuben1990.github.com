@@ -8,7 +8,7 @@
 
 var StaticSprite = BaseSprite.extend({
     ctor : function (parentNode, world, position, imgPath, width, height) {
-        this.initialize(parentNode, world, position, b2.b2Body.b2_staticBody, imgPath, width, height, 0, 0, 0, 1, 0, 1, my.BOX_SHAPE);
+        this.initialize(parentNode, world, position, b2.b2Body.b2_staticBody, imgPath, width, height, 0, 0, 0, 1, 0.8, 1, my.BOX_SHAPE);
         this.spriteType = my.BAFFLE_TYPE;
     }
 });
