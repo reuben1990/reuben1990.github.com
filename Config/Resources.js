@@ -23,6 +23,7 @@ var normal_bullet = "./Resources/normal-bullet.png";
 var fire_bullet = "./Resources/fire-bullet.png";
 var enemy_path = "./Resources/enemy.png";
 var hero_path = "./Resources/hero.png";
+//var font_path = "./Resources/fonts/bitmapFontTest.fnt";
 
 //music
 //var s_bgMusic = "./Resources/Music/bgMusic";
@@ -67,6 +68,7 @@ var g_ressources = [
     {type: "image", src: fire_bullet},
     {type: "image", src: enemy_path},
     {type: "image", src: hero_path}
+    //{type: "image", src: font_path}
 
     //tmx
     //{type: "tmx", src: s_level01},

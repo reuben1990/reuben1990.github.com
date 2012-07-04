@@ -20,7 +20,8 @@ var BaseSprite = cc.Sprite.extend({
         this.parentNode = parentNode;
         this.initWithFile(imgPath, cc.RectMake(0, 0, width * my.TILE_SIZE, height * my.TILE_SIZE));
         this.setPosition(cc.PointMake(position.x * my.TILE_SIZE, position.y * my.TILE_SIZE));
-        parentNode.addChild(this);
+        this.setRotation(-1 * cc.RADIANS_TO_DEGREES(radian_self));
+        parentNode.addChild(this, my.spriteLayer);
 
         bodyDef = new b2.b2BodyDef();
         bodyDef.type = type;
@@ -58,16 +59,27 @@ var BaseSprite = cc.Sprite.extend({
     alterPhysicalState : function (heroPos) {
         //abstract function, update the direction.
     },
+    drawSelf : function () {
+        //callback
+    },
+    doDrawSelf : function () {
+        var b = this.b2_body;
+        this.setRotation(-1 * cc.RADIANS_TO_DEGREES(b.GetAngle()));
+        this.setPosition(cc.PointMake(b.GetPosition().x * my.TILE_SIZE, b.GetPosition().y * my.TILE_SIZE));
+    },
     tagAsDead : function () {
         my.graveyard.push(this);
     },
     doDestroy : function () {
-        this.unscheduleAllSelectors();
-        var parentNode = this.getParent();
-        var body_tmp = this.b2_body;
-        if (parentNode !== null) {
-            parentNode.removeChild(this);
+        if (this.getParent() !== null) {
+            this.removeFromParentAndCleanup(true);
         }
+        //this.unscheduleAllSelectors();
+        //var parentNode = this.getParent();
+        var body_tmp = this.b2_body;
+        /*if (parentNode !== null) {
+            parentNode.removeChild(this);
+        }*/
         this.world.DestroyBody(body_tmp);
     },
     computeVecLength : function (vec) {

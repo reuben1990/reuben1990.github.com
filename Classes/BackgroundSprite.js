@@ -9,7 +9,7 @@ var backgroundSprite = cc.Sprite.extend({
     degree : 0,
     ctor : function (parent, imgPath, position_abs, interval) {
         this.initWithFile(imgPath);
-        parent.addChild(this);
+        parent.addChild(this, my.bgLayer);
         this.setPosition(position_abs);
         /*this.schedule(function () {
             this.setRotation(this.degree);

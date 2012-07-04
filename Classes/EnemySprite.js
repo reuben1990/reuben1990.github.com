@@ -15,12 +15,15 @@ var EnemySprite = BaseSprite.extend({
     impulseStrength : 4,
     maxVelocity : 5,
     density : 100,
-    flareUpProbability : 0.001,
-    angerStrength : 100,
+    flareUpProbability : 0.002,
+    angerStrength : 250,
     isAnger : false,
     ctor : function (parentNode, world, position, radian_direction, radian_self, velocity) {
         this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, enemy_path, this.width, this.height, radian_direction, radian_self, velocity, this.density, 0, 1, my.BOX_SHAPE);
         this.spriteType = my.ENEMY_TYPE;
+    },
+    drawSelf : function () {
+        this.doDrawSelf();
     },
     alterPhysicalState : function (hero) {
         this.setColor(new cc.Color3B(255, 255, 255));
@@ -46,6 +49,8 @@ var EnemySprite = BaseSprite.extend({
         if (sprite.spriteType === my.HERO_TYPE || sprite.spriteType === my.BULLET_TYPE) {
             this.b2_body.SetLinearVelocity(new b2.b2Vec2(this.b2_body.GetLinearVelocity().x / 1.1, this.b2_body.GetLinearVelocity().y / 1.1));
             this.life -= sprite.power;
+            my.score += sprite.power;
+            my.scoreLabel.setString("Score : " + my.score);
             this.setColor(cc.RED());
             if (this.life <= 0) {
                 this.tagAsDead();

@@ -13,65 +13,84 @@ var HeroSprite = BaseSprite.extend({
     isShooting : false,
     velocity : 10,
     normalShootInterval : 0.05,
-    fireShootInterval : 0.08,
+    fireShootInterval : 0.3,
     shootInterval : null,
     bulletType : null,
     radian_direction : 0,
     life : 100,
     power : 100,
     density : 100,
-    assailable : false,
     ctor : function (parentNode, world, position, keyHitAssistance) {
         this.keyHitAssistance = keyHitAssistance;
         this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, hero_path, this.width, this.height, 0, 0, 0, this.density, 0, 1, my.BOX_SHAPE);
         this.spriteType = my.HERO_TYPE;
         this.setBulletAs(my.NORMAL_BULLET);
     },
+    //callback
+    drawSelf : function () {
+        if (this.life > 0) {
+            this.doDrawSelf();
+        }
+    },
+    //callback
     alterPhysicalState : function (hero) {
-        var x_tmp = 0;
-        var y_tmp = 0;
-        if (this.keyHitAssistance.keyArray[cc.KEY.a]) {
-            x_tmp -= this.velocity;
+        if (this.life > 0) {
+            var x_tmp = 0;
+            var y_tmp = 0;
+            if (this.keyHitAssistance.keyArray[cc.KEY.a]) {
+                x_tmp -= this.velocity;
+            }
+            if (this.keyHitAssistance.keyArray[cc.KEY.d]) {
+                x_tmp += this.velocity;
+            }
+            if (this.keyHitAssistance.keyArray[cc.KEY.w]) {
+                y_tmp += this.velocity;
+            }
+            if (this.keyHitAssistance.keyArray[cc.KEY.s]) {
+                y_tmp -= this.velocity;
+            }
+            this.b2_body.SetAwake(true);
+            this.b2_body.SetLinearVelocity(new b2.b2Vec2(x_tmp, y_tmp));
         }
-        if (this.keyHitAssistance.keyArray[cc.KEY.d]) {
-            x_tmp += this.velocity;
-        }
-        if (this.keyHitAssistance.keyArray[cc.KEY.w]) {
-            y_tmp += this.velocity;
-        }
-        if (this.keyHitAssistance.keyArray[cc.KEY.s]) {
-            y_tmp -= this.velocity;
-        }
-        this.b2_body.SetAwake(true);
-        this.b2_body.SetLinearVelocity(new b2.b2Vec2(x_tmp, y_tmp));
     },
+    //callback
     handleTouchBegan : function (location) {
-        this.radian_direction = this.computeDirection(this.b2_body.GetPosition(), location);
-        this.schedule(this.shoot, this.shootInterval);
-        this.isShooting = true;
-        this.shoot();
+        if (this.life > 0) {
+            this.radian_direction = this.computeDirection(this.b2_body.GetPosition(), location);
+            this.schedule(this.shoot, this.shootInterval);
+            this.isShooting = true;
+            this.shoot();
+        }
     },
+    //callback
     handleTouchMoved : function (location) {
-        if (this.isShooting) {
+        if (this.isShooting && this.life > 0) {
             this.radian_direction = this.computeDirection(this.b2_body.GetPosition(), location);
         }
     },
+    //callback
     handleTouchEnded : function (location) {
-        this.isShooting = false;
-        this.unschedule(this.shoot);
+        if (this.life > 0) {
+            this.isShooting = false;
+            this.unschedule(this.shoot);
+        }
     },
+    //callback
     handleCollision : function (sprite) {
-        if (!this.assailable) {
-            this.assailable = true;
-        } else if (sprite.spriteType === my.ENEMY_TYPE) {
-            this.life -= sprite.power;
-            if (this.life <= 0) {
-                this.tagAsDead();
+        if (this.life > 0) {
+            if (sprite.spriteType === my.ENEMY_TYPE) {
+                this.life -= sprite.power;
+                my.lifeLabel.setString("Life : " + this.life);
+                if (this.life <= 0) {
+                    this.tagAsDead();
+                }
             }
         }
     },
+    //callback
     destroy : function () {
         this.doDestroy();
+        my.gameOver = true;
     },
     shoot : function () {
         var x_offset = Math.cos(this.radian_direction) * 1.5;
@@ -86,13 +105,18 @@ var HeroSprite = BaseSprite.extend({
             var normalBullet = new NormalBulletSprite(this.parentNode, this.world, pos, this.radian_direction);
         }
     },
+    //callback
     changeBullet : function () {
-        this.isShooting = false;
-        this.unschedule(this.shoot);
-        if (this.bulletType === my.NORMAL_BULLET) {
-            this.setBulletAs(my.FIRE_BULLET);
-        } else {
-            this.setBulletAs(my.NORMAL_BULLET);
+        if (this.life > 0) {
+            if (this.bulletType === my.NORMAL_BULLET) {
+                this.setBulletAs(my.FIRE_BULLET);
+            } else {
+                this.setBulletAs(my.NORMAL_BULLET);
+            }
+            if (this.isShooting) {
+                this.unschedule(this.shoot);
+                this.schedule(this.shoot, this.shootInterval);
+            }
         }
     },
     setBulletAs : function (type) {

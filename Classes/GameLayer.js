@@ -15,10 +15,13 @@ var GameLayer = cc.Layer.extend({
         this.keyHitAssistance = new keyKeyHitAssistance();
         this.world = new b2.b2World(new b2.b2Vec2(0, 0), true);
         this.world.SetContinuousPhysics(true);
+        this.hero = new HeroSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 4, this.SCREEN_TILE.height / 2), this.keyHitAssistance);
         this.initBackground();
         this.initBoundry();
         this.initEnemy();
-        this.hero = new HeroSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 4, this.SCREEN_TILE.height / 2), this.keyHitAssistance);
+        this.initScoreLabel();
+        this.initLifeLabel();
+
         this.setIsTouchEnabled(true);
         this.setIsKeypadEnabled(true);
         this.initContactListener();
@@ -74,15 +77,12 @@ var GameLayer = cc.Layer.extend({
         var b;
         for (b = this.world.GetBodyList(); b; b = b.GetNext()) {
             if (b.GetUserData() !== null) {
-                var sprite = b.GetUserData();
-                sprite.setPosition(cc.PointMake(b.GetPosition().x * my.TILE_SIZE, b.GetPosition().y * my.TILE_SIZE));
-                sprite.setRotation(-1 * cc.RADIANS_TO_DEGREES(b.GetAngle()));
+                b.GetUserData().drawSelf();
             }
         }
     },
     initBackground : function () {
         var bg = new backgroundSprite(this, background_pic_path, cc.PointMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height / 2), this.bgUpdateInterval);
-        //varyingSizeEffect(this, cc.PointMake(this.SCREEN_ABS.width / 2, this.SCREEN_ABS.height / 2));
     },
     initBoundry : function () {
         var roofSprite = new StaticSprite(this, this.world, cc.PointMake(this.SCREEN_TILE.width / 2, this.SCREEN_TILE.height + this.horizontalBaffleHeight / 2), horizontal_baffle_path, this.SCREEN_TILE.width, this.horizontalBaffleHeight);
@@ -92,6 +92,16 @@ var GameLayer = cc.Layer.extend({
     },
     initEnemy : function () {
         this.addEnemy();
+    },
+    initScoreLabel : function () {
+        my.scoreLabel = cc.LabelTTF.create("Score : 0", cc.SizeMake(this.SCREEN_ABS.width / 4, this.SCREEN_ABS.height / 12), cc.TEXT_ALIGNMENT_CENTER, "Arial", 30);
+        this.addChild(my.scoreLabel, my.fgLayer);
+        my.scoreLabel.setPosition(cc.ccp(this.SCREEN_ABS.width / 8 * 7, this.SCREEN_ABS.height / 24 * 23));
+    },
+    initLifeLabel : function () {
+        my.lifeLabel = cc.LabelTTF.create("Life : " + this.hero.life, cc.SizeMake(this.SCREEN_ABS.width / 6, this.SCREEN_ABS.height / 12), cc.TEXT_ALIGNMENT_CENTER, "Arial", 30);
+        this.addChild(my.lifeLabel, my.fgLayer);
+        my.lifeLabel.setPosition(cc.ccp(this.SCREEN_ABS.width / 12, this.SCREEN_ABS.height / 24 * 23));
     },
     initContactListener : function () {
         this.contactListener = new b2.b2ContactListener();
