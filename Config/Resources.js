@@ -25,6 +25,7 @@ var fire_bullet = "./Resources/fire-bullet.png";
 var enemy_path = "./Resources/enemy.png";
 var hero_path = "./Resources/hero.png";
 var gameoverbg_path = "./Resources/gameover.jpg";
+var ring_path = "./Resources/ring.png";
 //var font_path = "./Resources/fonts/bitmapFontTest.fnt";
 
 //music
@@ -71,7 +72,8 @@ var g_ressources = [
     {type: "image", src: enemy_path},
     {type: "image", src: hero_path},
     {type: "image", src: s_menu},
-    {type: "image", src: gameoverbg_path}
+    {type: "image", src: gameoverbg_path},
+    {type: "image", src: ring_path}
     //{type: "image", src: font_path}
 
     //tmx

@@ -94,6 +94,13 @@ var playHitEffect = function (parent, position, pScale, pTime) {
     explode.runAction(cc.Sequence.create(cc.FadeOut.create(pTime / 2), removeExplode));
 };
 
+var playRingEffect = function (parent, position) {
+    var sprite = cc.Sprite.create(ring_path);
+    var action = cc.RepeatForever.create(cc.RotateBy.create(1.0, 360));
+    sprite.runAction(action);
+    sprite.setPosition(position);
+    parent.addChild(sprite);
+};
 var varyingSizeEffect = function (parent, position) {
     var emitter = new cc.ParticleSystemQuad();
     //this._emitter.initWithTotalParticles(1000);

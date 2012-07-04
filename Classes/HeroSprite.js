@@ -25,6 +25,7 @@ var HeroSprite = BaseSprite.extend({
         this.initialize(parentNode, world, position, b2.b2Body.b2_dynamicBody, hero_path, this.width, this.height, 0, 0, 0, this.density, 0.8, 1, my.CIRCLE_SHAPE);
         this.spriteType = my.HERO_TYPE;
         this.setBulletAs(my.NORMAL_BULLET);
+        playRingEffect(this, cc.PointMake(this.width * my.TILE_SIZE / 2, this.height * my.TILE_SIZE / 2));
     },
     //callback
     drawSelf : function () {
