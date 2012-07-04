@@ -34,8 +34,8 @@ var NormalBulletSprite = BaseSprite.extend({
 
 var FireBulletSprite = NormalBulletSprite.extend({
     imgPath : fire_bullet,
-    velocity : 30,
-    power : 50,
+    velocity : 60,
+    power : 5,
     width : 0.5,
     height : 0.5,
     ctor : function (parentNode, world, position, radian_direction) {
@@ -44,9 +44,11 @@ var FireBulletSprite = NormalBulletSprite.extend({
         this.spriteType = my.BULLET_TYPE;
         this.setAsBullet();
 
-        var emitter = cc.ParticleSun.create();
-        this.addChild(emitter, 10);
-        emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
-        emitter.setPosition(cc.PointMake(this.width * my.TILE_SIZE / 2, this.height * my.TILE_SIZE / 2));
+        playHitEffect(this, cc.PointMake(this.width * my.TILE_SIZE / 2, this.height * my.TILE_SIZE / 2), 1.5, 1.5);
+    },
+    handleCollision : function (sprite) {
+        if (sprite.spriteType !== my.HERO_TYPE) {
+            this.tagAsDead();
+        }
     }
 });

@@ -25,10 +25,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Effect.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Effect.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Classes/Effect.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="0" selection-start="3295" selection-end="3295" vertical-scroll-proportion="0.3319838">
+            <state line="85" column="26" selection-start="2849" selection-end="2849" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BulletSprite.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Classes/BulletSprite.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="17" selection-start="1251" selection-end="1251" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -52,10 +61,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HeroSprite.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="HeroSprite.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Classes/HeroSprite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="27" selection-start="886" selection-end="886" vertical-scroll-proportion="0.0">
+            <state line="26" column="41" selection-start="857" selection-end="857" vertical-scroll-proportion="0.51619434">
               <folding />
             </state>
           </provider>
@@ -84,13 +93,13 @@
         <option value="$PROJECT_DIR$/Classes/GameOver.js" />
         <option value="$PROJECT_DIR$/Classes/BaseSprite.js" />
         <option value="$PROJECT_DIR$/Classes/EnemySprite.js" />
-        <option value="$PROJECT_DIR$/Classes/BulletSprite.js" />
         <option value="$PROJECT_DIR$/Classes/StaticSprite.js" />
         <option value="$PROJECT_DIR$/Classes/GameLayer.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/Config/Resources.js" />
-        <option value="$PROJECT_DIR$/Classes/HeroSprite.js" />
         <option value="$PROJECT_DIR$/Classes/Effect.js" />
+        <option value="$PROJECT_DIR$/Classes/BulletSprite.js" />
+        <option value="$PROJECT_DIR$/Classes/HeroSprite.js" />
       </list>
     </option>
   </component>
@@ -231,10 +240,10 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="JavaScript.Libraries" />
     <property name="recentsLimit" value="5" />
-    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.lastSelected" value="JavaScript.Libraries" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -439,23 +448,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="19" selection-start="49" selection-end="49" vertical-scroll-proportion="-1.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/BulletSprite.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="22" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="3" column="19" selection-start="49" selection-end="49" vertical-scroll-proportion="-1.875" />
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Important/cocos2d/cocos2d/actions/CCActionInterval.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="741" column="0" selection-start="19474" selection-end="19474" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="741" column="0" selection-start="19474" selection-end="19474" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/GameLayer.js">
@@ -467,42 +465,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Classes/EnemySprite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="177" selection-start="692" selection-end="692" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="21" column="177" selection-start="692" selection-end="692" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Lib/Cocos2d-html5-canvasmenu-min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="0" selection-start="35798" selection-end="35798" vertical-scroll-proportion="0.3180873">
-          <folding />
-        </state>
+        <state line="75" column="0" selection-start="35798" selection-end="35798" vertical-scroll-proportion="0.3180873" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/HeroSprite.js">
+    <entry file="file://$USER_HOME$/Important/cocos2d/cocos2d/base_nodes/CCNode.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="27" selection-start="886" selection-end="886" vertical-scroll-proportion="0.0">
+        <state line="840" column="4" selection-start="24300" selection-end="24300" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/Effect.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="26" selection-start="2849" selection-end="2849" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Config/Resources.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="13" selection-start="1192" selection-end="1201" vertical-scroll-proportion="0.0">
+        <state line="27" column="13" selection-start="1192" selection-end="1201" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Classes/BulletSprite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="17" selection-start="1251" selection-end="1251" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Important/cocos2d/cocos2d/base_nodes/CCNode.js">
+    <entry file="file://$PROJECT_DIR$/Classes/HeroSprite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="840" column="4" selection-start="24300" selection-end="24300" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Classes/Effect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="0" selection-start="3295" selection-end="3295" vertical-scroll-proportion="0.3319838">
+        <state line="26" column="41" selection-start="857" selection-end="857" vertical-scroll-proportion="0.51619434">
           <folding />
         </state>
       </provider>

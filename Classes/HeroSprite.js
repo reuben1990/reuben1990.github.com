@@ -13,7 +13,7 @@ var HeroSprite = BaseSprite.extend({
     isShooting : false,
     velocity : 10,
     normalShootInterval : 0.05,
-    fireShootInterval : 0.3,
+    fireShootInterval : 0.02,
     shootInterval : null,
     bulletType : null,
     radian_direction : 0,
